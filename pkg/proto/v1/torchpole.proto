@@ -1,0 +1,49 @@
+// Copyright 2022 Innkeeper dairongpeng <dairongpeng@foxmail.com>. All rights reserved.
+// Use of this source code is governed by a MIT style
+// license that can be found in the LICENSE file. The original repo for
+// this file is https://github.com/combizent/torchpole.
+
+syntax = "proto3";
+
+package v1;
+option go_package = "github.com/combizent/torchpole/pkg/proto/torchpole/v1";
+
+import "google/protobuf/timestamp.proto";
+
+service TorchPole {
+  rpc ListUser(ListUserRequest) returns (ListUserResponse) {}
+}
+
+message UserInfo {
+  string username = 1;
+  string nickname = 2;
+  string email = 3;
+  string phone = 4;
+  int64 postCount = 5;
+  google.protobuf.Timestamp createdAt = 6;
+  google.protobuf.Timestamp updatedAt = 7;
+}
+
+message ListUserRequest {
+  int64 limit = 1;
+  int64 offset = 2;
+}
+
+message ListUserResponse {
+  int64 totalCount = 1;
+  repeated UserInfo Users = 2;
+}
+
+// 示例 message 定义，用来展示 protobuf 修饰符，编译后的效果
+message ModifierExample {
+  reserved 2, 15 to 25; // 保留标识符(reserved)可以避免其他人在未来使用不该使用的标志号
+  string username = 1;
+  optional string nickname = 3; // 可选值
+  bool hasEmail = 4;
+  repeated string phones = 5; // 任意数量（包括0），可以看成是一个数组.
+  bytes content = 6;
+  int32 money  = 7;
+  int64 count = 8;
+  map<string, int64> address = 9; // 编译后：`Address   map[string]string`
+  google.protobuf.Timestamp createdAt = 10;
+}
