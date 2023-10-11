@@ -1,4 +1,4 @@
-// Copyright 2022 Innkeeper dairongpeng <dairongpeng@foxmail.com>. All rights reserved.
+// Copyright 2023 Innkeeper dairongpeng <dairongpeng@foxmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file. The original repo for
 // this file is https://github.com/combizent/torchpole.
@@ -12,11 +12,12 @@
 package v1
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (

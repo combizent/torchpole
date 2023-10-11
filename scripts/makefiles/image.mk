@@ -7,7 +7,7 @@ DOCKER_SUPPORTED_API_VERSION ?= 1.32
 
 REGISTRY_PREFIX ?= combizent
 # 定义基础镜像
-BASE_IMAGE = centos:centos8
+BASE_IMAGE = alpine:3.18
 
 EXTRA_ARGS ?= --no-cache
 _DOCKER_BUILD_EXTRA_ARGS :=
