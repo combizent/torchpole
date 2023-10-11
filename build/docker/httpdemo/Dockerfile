@@ -6,13 +6,13 @@
 FROM BASE_IMAGE
 LABEL maintainer="<dairongpeng@foxmail.com>"
 
-WORKDIR /opt/torchpole
+WORKDIR /opt/httpdemo
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
       echo "Asia/Shanghai" > /etc/timezone && \
-      mkdir -p /var/log/torchpole
+      mkdir -p /var/log/httpdemo
 
-COPY torchpole /opt/torchpole/bin/
+COPY httpdemo /opt/httpdemo/bin/
 
-ENTRYPOINT ["/opt/torchpole/bin/torchpole"]
-CMD ["-c", "/etc/torchpole/torchpole.yaml"]
+ENTRYPOINT ["/opt/httpdemo/bin/httpdemo"]
+CMD ["-c", "/etc/httpdemo/httpdemo.yaml"]

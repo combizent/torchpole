@@ -46,7 +46,7 @@ GO_LDFLAGS += \
 	-X $(VERSION_PACKAGE).BuildDate=$(shell date -u +'%Y-%m-%dT%H:%M:%SZ')
 
 # 编译的操作系统可以是 linux/windows/darwin
-PLATFORMS ?= darwin_amd64 windows_amd64 linux_amd64 linux_arm64
+PLATFORMS ?= darwin_amd64 darwin_arm64 windows_amd64 linux_amd64 linux_arm64
 
 # 设置一个指定的操作系统
 ifeq ($(origin PLATFORM), undefined)
