@@ -6,20 +6,16 @@
 package main
 
 import (
+	"os"
+
 	_ "go.uber.org/automaxprocs"
 
 	"github.com/combizent/torchpole/internal/torchpole"
-	"github.com/spf13/cobra"
 )
 
-var cmd = &cobra.Command{
-	Use:   "tp-cli",
-	Short: "Torchpole CLI.",
-}
-
 func main() {
-	cmd.AddCommand(torchpole.CmdRun)
-	if err := cmd.Execute(); err != nil {
-		panic(err)
+	if err := torchpole.NewCmd().
+		Execute(); err != nil {
+		os.Exit(1)
 	}
 }
