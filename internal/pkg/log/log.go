@@ -81,3 +81,50 @@ func fromCtxLogItems(ctx context.Context) map[string]string {
 	}
 	return raw.(map[string]string)
 }
+
+func WithLogContext(ctx context.Context, e *zerolog.Event) *zerolog.Event {
+	e.Timestamp()
+
+	if ctx == context.Background() {
+		return e
+	}
+
+	logFields := fromCtxLogItems(ctx)
+	if len(logFields) == 0 {
+		return e
+	}
+
+	for k, v := range logFields {
+		e = e.Str(k, v)
+	}
+
+	return e
+}
+
+func Debug(ctx context.Context) *zerolog.Event {
+	return WithLogContext(ctx, log.Debug())
+}
+
+func Info(ctx context.Context) *zerolog.Event {
+	return WithLogContext(ctx, log.Info())
+}
+
+func Warn(ctx context.Context) *zerolog.Event {
+	return WithLogContext(ctx, log.Warn())
+}
+
+func WarnErr(ctx context.Context, err error) *zerolog.Event {
+	return Warn(ctx).Err(err)
+}
+
+func Error(ctx context.Context) *zerolog.Event {
+	return WithLogContext(ctx, log.Error())
+}
+
+func Err(ctx context.Context, err error) *zerolog.Event {
+	return WithLogContext(ctx, log.Err(err))
+}
+
+func Fatal(ctx context.Context) *zerolog.Event {
+	return WithLogContext(ctx, log.Fatal())
+}
