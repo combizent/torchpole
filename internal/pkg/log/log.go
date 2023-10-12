@@ -1,3 +1,8 @@
+// Copyright 2023 Innkeeper dairongpeng <dairongpeng@foxmail.com>. All rights reserved.
+// Use of this source code is governed by a MIT style
+// license that can be found in the LICENSE file. The original repo for
+// this file is https://github.com/combizent/torchpole.
+
 package log
 
 import (
@@ -19,8 +24,7 @@ type Options struct {
 
 func Init(o *Options) {
 	once.Do(func() {
-		var w zerolog.LevelWriter
-		w = zerolog.MultiLevelWriter(os.Stdout)
+		w := zerolog.MultiLevelWriter(os.Stdout)
 
 		if !o.DisableCaller {
 			log.Logger = zerolog.New(w).With().Timestamp().Caller().Logger()
@@ -49,7 +53,7 @@ type ctxLogKeyType string
 
 var ctxLogKey ctxLogKeyType = "logFields"
 
-// WithLogValues 对传入的ctx加入items确定的key value
+// WithLogValues 对传入的ctx加入items确定的key value.
 func WithLogValues(ctx context.Context, items ...string) context.Context {
 	if len(items) == 0 {
 		return ctx
