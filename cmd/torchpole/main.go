@@ -14,8 +14,8 @@ import (
 )
 
 func main() {
-	if err := torchpole.NewCmd().
-		Execute(); err != nil {
+	cmd := torchpole.NewCmd()
+	if err := cmd.Execute(); err != nil {
 		os.Exit(1)
 	}
 }

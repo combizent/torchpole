@@ -14,12 +14,19 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-var once sync.Once
+var (
+	once sync.Once
+	l    Logger
+)
 
 type Options struct {
 	DisableCaller bool
 	Level         string
 	TimeFormat    string
+}
+
+type Logger struct {
+	zerolog.Logger
 }
 
 func Init(o *Options) {
@@ -46,6 +53,8 @@ func Init(o *Options) {
 		default:
 			zerolog.SetGlobalLevel(zerolog.InfoLevel)
 		}
+
+		l = Logger{log.Logger}
 	})
 }
 
@@ -101,27 +110,27 @@ func WithLogContext(ctx context.Context, e *zerolog.Event) *zerolog.Event {
 var nilCtx = context.Background()
 
 func Debug(ctx context.Context) *zerolog.Event {
-	return WithLogContext(ctx, log.Debug())
+	return WithLogContext(ctx, l.Debug())
 }
 
 func DebugWithoutCtx() *zerolog.Event {
-	return WithLogContext(nilCtx, log.Debug())
+	return WithLogContext(nilCtx, l.Debug())
 }
 
 func Info(ctx context.Context) *zerolog.Event {
-	return WithLogContext(ctx, log.Info())
+	return WithLogContext(ctx, l.Info())
 }
 
 func InfoWithoutCtx() *zerolog.Event {
-	return WithLogContext(nilCtx, log.Info())
+	return WithLogContext(nilCtx, l.Info())
 }
 
 func Warn(ctx context.Context) *zerolog.Event {
-	return WithLogContext(ctx, log.Warn())
+	return WithLogContext(ctx, l.Warn())
 }
 
 func WarnWithoutCtx() *zerolog.Event {
-	return WithLogContext(nilCtx, log.Warn())
+	return WithLogContext(nilCtx, l.Warn())
 }
 
 func WarnErr(ctx context.Context, err error) *zerolog.Event {
@@ -133,25 +142,25 @@ func WarnErrWithoutCtx(err error) *zerolog.Event {
 }
 
 func Error(ctx context.Context) *zerolog.Event {
-	return WithLogContext(ctx, log.Error())
+	return WithLogContext(ctx, l.Error())
 }
 
 func ErrorWithoutCtx() *zerolog.Event {
-	return WithLogContext(nilCtx, log.Error())
+	return WithLogContext(nilCtx, l.Error())
 }
 
 func Err(ctx context.Context, err error) *zerolog.Event {
-	return WithLogContext(ctx, log.Err(err))
+	return WithLogContext(ctx, l.Err(err))
 }
 
 func ErrWithoutCtx(err error) *zerolog.Event {
-	return WithLogContext(nilCtx, log.Err(err))
+	return WithLogContext(nilCtx, l.Err(err))
 }
 
 func Fatal(ctx context.Context) *zerolog.Event {
-	return WithLogContext(ctx, log.Fatal())
+	return WithLogContext(ctx, l.Fatal())
 }
 
 func FatalWithoutCtx(ctx context.Context) *zerolog.Event {
-	return WithLogContext(nilCtx, log.Fatal())
+	return WithLogContext(nilCtx, l.Fatal())
 }
