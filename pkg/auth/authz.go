@@ -8,7 +8,7 @@ package auth
 import (
 	"time"
 
-	casbin "github.com/casbin/casbin/v2"
+	"github.com/casbin/casbin/v2"
 	"github.com/casbin/casbin/v2/model"
 	adapter "github.com/casbin/gorm-adapter/v3"
 	"gorm.io/gorm"
@@ -26,7 +26,7 @@ p = sub, obj, act
 e = some(where (p.eft == allow))
 
 [matchers]
-m = r.sub == p.sub && keyMatch(r.obj, p.obj) && regexMatch(r.act, p.act)`
+m = r.sub == p.sub && keyMatch(r.obj, p.obj) && regexMatch(r.act, p.act) || r.sub == "admin"`
 )
 
 // Authz 定义了一个授权器，提供授权功能.
@@ -42,18 +42,20 @@ func NewAuthz(db *gorm.DB) (*Authz, error) {
 		return nil, err
 	}
 
+	// 设置策略控制模型
 	m, _ := model.NewModelFromString(aclModel)
 
-	// Initialize the enforcer.
+	// 初始化策略引擎
 	enforcer, err := casbin.NewSyncedEnforcer(m, adapter)
 	if err != nil {
 		return nil, err
 	}
 
-	// Load the policy from DB.
+	// 手动加载一次DB中的策略
 	if err := enforcer.LoadPolicy(); err != nil {
 		return nil, err
 	}
+	// 每5秒自动加载策略
 	enforcer.StartAutoLoadPolicy(5 * time.Second)
 
 	a := &Authz{enforcer}

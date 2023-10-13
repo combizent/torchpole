@@ -3,11 +3,16 @@
 # license that can be found in the LICENSE file. The original repo for
 # this file is https://github.com/combizent/torchpole.
 
+# 通用配置
+mode: debug                  # Gin 开发模式, 可选值有：debug, release, test
+addr: :8989                  # HTTP 服务器监听地址
+jwt-secret: torchpole!@#     # JWT 签发密钥
+
 # MySQL 数据库相关配置
 db:
   host: 127.0.0.1  # MySQL 机器 IP 和端口，默认 127.0.0.1:3306
-  username: torchpole # MySQL 用户名(建议授权最小权限集)
-  password: torchpole!@# # MySQL 用户密码
+  username: root # MySQL 用户名(建议授权最小权限集)
+  password: root # MySQL 用户密码
   database: torchpole # torchpole 系统所用的数据库名
   max-idle-connections: 100 # MySQL 最大空闲连接数，默认 100
   max-open-connections: 100 # MySQL 最大打开的连接数，默认 100
@@ -16,6 +21,6 @@ db:
 
 # 日志配置
 log:
-  disable-caller: false # 是否开启 caller，如果开启会在日志中显示调用日志所在的文件和行号
-  level: debug # 指定日志级别，可选值：debug, info, warn, error, fatal
-  time-format:  # 指定日志时间显示格式 2006-01-02T15:04:05.999999999Z07:00
+  disable-caller: false                            # 是否开启 caller，如果开启会在日志中显示调用日志所在的文件和行号
+  level: debug                                     # 指定日志级别，可选值：debug, info, warn, error, fatal
+  time-format: 2006-01-02T15:04:05.999999999Z07:00 # 指定日志时间显示格式 2006-01-02T15:04:05.999999999Z07:00

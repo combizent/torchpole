@@ -7,13 +7,12 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.22.0
-// source: v1/torchpole.proto
+// source: torchpole/v1/torchpole.proto
 
 package v1
 
 import (
 	context "context"
-
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -111,5 +110,5 @@ var TorchPole_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "v1/torchpole.proto",
+	Metadata: "torchpole/v1/torchpole.proto",
 }

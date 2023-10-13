@@ -161,6 +161,6 @@ func Fatal(ctx context.Context) *zerolog.Event {
 	return WithLogContext(ctx, l.Fatal())
 }
 
-func FatalWithoutCtx(ctx context.Context) *zerolog.Event {
+func FatalWithoutCtx() *zerolog.Event {
 	return WithLogContext(nilCtx, l.Fatal())
 }
