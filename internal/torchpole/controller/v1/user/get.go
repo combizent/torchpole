@@ -13,10 +13,10 @@ import (
 )
 
 // Get 获取一个用户的详细信息.
-func (ctrl *UserController) Get(c *gin.Context) {
+func (userController *UserController) Get(c *gin.Context) {
 	log.Info(c).Msg("Get user function called")
 
-	user, err := ctrl.biz.Users().Get(c, c.Param("name"))
+	user, err := userController.biz.UserBiz().Get(c, c.Param("name"))
 	if err != nil {
 		core.WriteResponse(c, err, nil)
 

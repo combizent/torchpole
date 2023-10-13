@@ -12,7 +12,7 @@ import (
 
 // IBiz 定义了 Biz 层需要实现的方法.
 type IBiz interface {
-	Users() user.UserBiz
+	UserBiz() user.IUserBiz
 }
 
 // 确保 biz 实现了 IBiz 接口.
@@ -27,11 +27,11 @@ type biz struct {
 var _ IBiz = (*biz)(nil)
 
 // NewBiz 创建一个 IBiz 类型的实例.
-func NewBiz(ds store.IStore) *biz {
-	return &biz{ds: ds}
+func NewBiz(s store.IStore) *biz {
+	return &biz{ds: s}
 }
 
-// Users 返回一个实现了 UserBiz 接口的实例.
-func (b *biz) Users() user.UserBiz {
+// UserBiz 返回一个实现了 UserBiz 接口的实例.
+func (b *biz) UserBiz() user.IUserBiz {
 	return user.New(b.ds)
 }

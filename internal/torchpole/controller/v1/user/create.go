@@ -18,7 +18,7 @@ import (
 const defaultMethods = "(GET)|(POST)|(PUT)|(DELETE)"
 
 // Create 创建一个新的用户.
-func (ctrl *UserController) Create(c *gin.Context) {
+func (userController *UserController) Create(c *gin.Context) {
 	log.Info(c).Msg("Create user function called")
 
 	var r v1.CreateUserRequest
@@ -34,13 +34,13 @@ func (ctrl *UserController) Create(c *gin.Context) {
 		return
 	}
 
-	if err := ctrl.biz.Users().Create(c, &r); err != nil {
+	if err := userController.biz.UserBiz().Create(c, &r); err != nil {
 		core.WriteResponse(c, err, nil)
 
 		return
 	}
 
-	if _, err := ctrl.auth.AddNamedPolicy("p", r.Username, "/v1/users/"+r.Username, defaultMethods); err != nil {
+	if _, err := userController.auth.AddNamedPolicy("p", r.Username, "/v1/users/"+r.Username, defaultMethods); err != nil {
 		core.WriteResponse(c, err, nil)
 
 		return

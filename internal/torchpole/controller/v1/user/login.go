@@ -15,7 +15,7 @@ import (
 )
 
 // Login 登录 torchpole 并返回一个 JWT Token.
-func (ctrl *UserController) Login(c *gin.Context) {
+func (userController *UserController) Login(c *gin.Context) {
 	log.Info(c).Msg("Login function called")
 
 	var r v1.LoginRequest
@@ -25,7 +25,7 @@ func (ctrl *UserController) Login(c *gin.Context) {
 		return
 	}
 
-	resp, err := ctrl.biz.Users().Login(c, &r)
+	resp, err := userController.biz.UserBiz().Login(c, &r)
 	if err != nil {
 		core.WriteResponse(c, err, nil)
 

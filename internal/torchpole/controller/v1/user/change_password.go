@@ -16,7 +16,7 @@ import (
 )
 
 // ChangePassword 用来修改指定用户的密码.
-func (ctrl *UserController) ChangePassword(c *gin.Context) {
+func (userController *UserController) ChangePassword(c *gin.Context) {
 	log.Info(c).Msg("Change password function called")
 
 	var r v1.ChangePasswordRequest
@@ -32,7 +32,7 @@ func (ctrl *UserController) ChangePassword(c *gin.Context) {
 		return
 	}
 
-	if err := ctrl.biz.Users().ChangePassword(c, c.Param("name"), &r); err != nil {
+	if err := userController.biz.UserBiz().ChangePassword(c, c.Param("name"), &r); err != nil {
 		core.WriteResponse(c, err, nil)
 
 		return

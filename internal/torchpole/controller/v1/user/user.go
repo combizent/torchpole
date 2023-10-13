@@ -20,6 +20,6 @@ type UserController struct {
 }
 
 // New 创建一个 user controller.
-func New(ds store.IStore, a *auth.Authz) *UserController {
-	return &UserController{auth: a, biz: biz.NewBiz(ds)}
+func New(s store.IStore, a *auth.Authz) *UserController {
+	return &UserController{auth: a, biz: biz.NewBiz(s)}
 }

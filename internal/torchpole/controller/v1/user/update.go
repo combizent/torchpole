@@ -16,7 +16,7 @@ import (
 )
 
 // Update 更新用户信息.
-func (ctrl *UserController) Update(c *gin.Context) {
+func (userController *UserController) Update(c *gin.Context) {
 	log.Info(c).Msg("Update user function called")
 
 	var r v1.UpdateUserRequest
@@ -32,7 +32,7 @@ func (ctrl *UserController) Update(c *gin.Context) {
 		return
 	}
 
-	if err := ctrl.biz.Users().Update(c, c.Param("name"), &r); err != nil {
+	if err := userController.biz.UserBiz().Update(c, c.Param("name"), &r); err != nil {
 		core.WriteResponse(c, err, nil)
 
 		return

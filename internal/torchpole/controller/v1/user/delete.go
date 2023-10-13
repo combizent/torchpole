@@ -13,18 +13,18 @@ import (
 )
 
 // Delete 删除一个用户.
-func (ctrl *UserController) Delete(c *gin.Context) {
+func (userController *UserController) Delete(c *gin.Context) {
 	log.Info(c).Msg("Delete user function called")
 
 	username := c.Param("name")
 
-	if err := ctrl.biz.Users().Delete(c, username); err != nil {
+	if err := userController.biz.UserBiz().Delete(c, username); err != nil {
 		core.WriteResponse(c, err, nil)
 
 		return
 	}
 
-	if _, err := ctrl.auth.RemoveNamedPolicy("p", username, "", ""); err != nil {
+	if _, err := userController.auth.RemoveNamedPolicy("p", username, "", ""); err != nil {
 		core.WriteResponse(c, err, nil)
 
 		return

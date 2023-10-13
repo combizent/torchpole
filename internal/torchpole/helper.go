@@ -99,7 +99,7 @@ func initStore() error {
 		return err
 	}
 
-	_ = store.NewStore(ins)
+	store.Init(ins)
 
 	return nil
 }

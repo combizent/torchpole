@@ -20,7 +20,7 @@ import (
 )
 
 // List 返回用户列表，只有 root 用户才能获取用户列表.
-func (ctrl *UserController) List(c *gin.Context) {
+func (userController *UserController) List(c *gin.Context) {
 	log.Info(c).Msg("List user function called")
 
 	var r v1.ListUserRequest
@@ -30,7 +30,7 @@ func (ctrl *UserController) List(c *gin.Context) {
 		return
 	}
 
-	resp, err := ctrl.biz.Users().List(c, r.Offset, r.Limit)
+	resp, err := userController.biz.UserBiz().List(c, r.Offset, r.Limit)
 	if err != nil {
 		core.WriteResponse(c, err, nil)
 
@@ -41,10 +41,10 @@ func (ctrl *UserController) List(c *gin.Context) {
 }
 
 // ListUser 返回用户列表，只有 root 用户才能获取用户列表.
-func (ctrl *UserController) ListUser(ctx context.Context, r *pb.ListUserRequest) (*pb.ListUserResponse, error) {
+func (userController *UserController) ListUser(ctx context.Context, r *pb.ListUserRequest) (*pb.ListUserResponse, error) {
 	log.Info(ctx).Msg("ListUser function called")
 
-	resp, err := ctrl.biz.Users().List(ctx, int(r.Offset), int(r.Limit))
+	resp, err := userController.biz.UserBiz().List(ctx, int(r.Offset), int(r.Limit))
 	if err != nil {
 		return nil, err
 	}

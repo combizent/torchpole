@@ -14,8 +14,8 @@ import (
 	"github.com/combizent/torchpole/internal/pkg/model"
 )
 
-// UserStore 定义了 user 模块在 store 层所实现的方法.
-type UserStore interface {
+// IUserStore 定义了 user 模块在 store 层所实现的方法.
+type IUserStore interface {
 	Create(ctx context.Context, user *model.User) error
 	Get(ctx context.Context, username string) (*model.User, error)
 	Update(ctx context.Context, user *model.User) error
@@ -29,7 +29,7 @@ type users struct {
 }
 
 // 确保 users 实现了 UserStore 接口.
-var _ UserStore = (*users)(nil)
+var _ IUserStore = (*users)(nil)
 
 func newUsers(db *gorm.DB) *users {
 	return &users{db}

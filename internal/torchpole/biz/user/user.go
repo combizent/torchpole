@@ -24,8 +24,8 @@ import (
 	"github.com/combizent/torchpole/pkg/token"
 )
 
-// UserBiz 定义了 user 模块在 biz 层所实现的方法.
-type UserBiz interface {
+// IUserBiz 定义了 user 模块在 biz 层所实现的方法.
+type IUserBiz interface {
 	ChangePassword(ctx context.Context, username string, r *v1.ChangePasswordRequest) error
 	Login(ctx context.Context, r *v1.LoginRequest) (*v1.LoginResponse, error)
 	Create(ctx context.Context, r *v1.CreateUserRequest) error
@@ -41,7 +41,7 @@ type userBiz struct {
 }
 
 // 确保 userBiz 实现了 UserBiz 接口.
-var _ UserBiz = (*userBiz)(nil)
+var _ IUserBiz = (*userBiz)(nil)
 
 // New 创建一个实现了 UserBiz 接口的实例.
 func New(ds store.IStore) *userBiz {
@@ -49,8 +49,8 @@ func New(ds store.IStore) *userBiz {
 }
 
 // ChangePassword 是 UserBiz 接口中 `ChangePassword` 方法的实现.
-func (b *userBiz) ChangePassword(ctx context.Context, username string, r *v1.ChangePasswordRequest) error {
-	userM, err := b.ds.Users().Get(ctx, username)
+func (userBiz *userBiz) ChangePassword(ctx context.Context, username string, r *v1.ChangePasswordRequest) error {
+	userM, err := userBiz.ds.Users().Get(ctx, username)
 	if err != nil {
 		return err
 	}
@@ -60,7 +60,7 @@ func (b *userBiz) ChangePassword(ctx context.Context, username string, r *v1.Cha
 	}
 
 	userM.Password, _ = auth.Encrypt(r.NewPassword)
-	if err := b.ds.Users().Update(ctx, userM); err != nil {
+	if err := userBiz.ds.Users().Update(ctx, userM); err != nil {
 		return err
 	}
 
@@ -68,9 +68,9 @@ func (b *userBiz) ChangePassword(ctx context.Context, username string, r *v1.Cha
 }
 
 // Login 是 UserBiz 接口中 `Login` 方法的实现.
-func (b *userBiz) Login(ctx context.Context, r *v1.LoginRequest) (*v1.LoginResponse, error) {
+func (userBiz *userBiz) Login(ctx context.Context, r *v1.LoginRequest) (*v1.LoginResponse, error) {
 	// 获取登录用户的所有信息
-	user, err := b.ds.Users().Get(ctx, r.Username)
+	user, err := userBiz.ds.Users().Get(ctx, r.Username)
 	if err != nil {
 		return nil, errcode.ErrUserNotFound
 	}
@@ -90,11 +90,11 @@ func (b *userBiz) Login(ctx context.Context, r *v1.LoginRequest) (*v1.LoginRespo
 }
 
 // Create 是 UserBiz 接口中 `Create` 方法的实现.
-func (b *userBiz) Create(ctx context.Context, r *v1.CreateUserRequest) error {
+func (userBiz *userBiz) Create(ctx context.Context, r *v1.CreateUserRequest) error {
 	var userM model.User
 	_ = copier.Copy(&userM, r)
 
-	if err := b.ds.Users().Create(ctx, &userM); err != nil {
+	if err := userBiz.ds.Users().Create(ctx, &userM); err != nil {
 		if match, _ := regexp.MatchString("Duplicate entry '.*' for key 'username'", err.Error()); match {
 			return errcode.ErrUserAlreadyExist
 		}
@@ -106,8 +106,8 @@ func (b *userBiz) Create(ctx context.Context, r *v1.CreateUserRequest) error {
 }
 
 // Get 是 UserBiz 接口中 `Get` 方法的实现.
-func (b *userBiz) Get(ctx context.Context, username string) (*v1.GetUserResponse, error) {
-	user, err := b.ds.Users().Get(ctx, username)
+func (userBiz *userBiz) Get(ctx context.Context, username string) (*v1.GetUserResponse, error) {
+	user, err := userBiz.ds.Users().Get(ctx, username)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, errcode.ErrUserNotFound
@@ -126,8 +126,8 @@ func (b *userBiz) Get(ctx context.Context, username string) (*v1.GetUserResponse
 }
 
 // List 是 UserBiz 接口中 `List` 方法的实现.
-func (b *userBiz) List(ctx context.Context, offset, limit int) (*v1.ListUserResponse, error) {
-	count, list, err := b.ds.Users().List(ctx, offset, limit)
+func (userBiz *userBiz) List(ctx context.Context, offset, limit int) (*v1.ListUserResponse, error) {
+	count, list, err := userBiz.ds.Users().List(ctx, offset, limit)
 	if err != nil {
 		log.Err(ctx, err).Msg("Failed to list users from storage")
 		return nil, err
@@ -181,8 +181,8 @@ func (b *userBiz) List(ctx context.Context, offset, limit int) (*v1.ListUserResp
 }
 
 // Update 是 UserBiz 接口中 `Update` 方法的实现.
-func (b *userBiz) Update(ctx context.Context, username string, user *v1.UpdateUserRequest) error {
-	userM, err := b.ds.Users().Get(ctx, username)
+func (userBiz *userBiz) Update(ctx context.Context, username string, user *v1.UpdateUserRequest) error {
+	userM, err := userBiz.ds.Users().Get(ctx, username)
 	if err != nil {
 		return err
 	}
@@ -199,7 +199,7 @@ func (b *userBiz) Update(ctx context.Context, username string, user *v1.UpdateUs
 		userM.Phone = *user.Phone
 	}
 
-	if err := b.ds.Users().Update(ctx, userM); err != nil {
+	if err := userBiz.ds.Users().Update(ctx, userM); err != nil {
 		return err
 	}
 
@@ -207,8 +207,8 @@ func (b *userBiz) Update(ctx context.Context, username string, user *v1.UpdateUs
 }
 
 // Delete 是 UserBiz 接口中 `Delete` 方法的实现.
-func (b *userBiz) Delete(ctx context.Context, username string) error {
-	if err := b.ds.Users().Delete(ctx, username); err != nil {
+func (userBiz *userBiz) Delete(ctx context.Context, username string) error {
+	if err := userBiz.ds.Users().Delete(ctx, username); err != nil {
 		return err
 	}
 
