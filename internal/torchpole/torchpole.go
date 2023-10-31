@@ -109,6 +109,9 @@ func run() error {
 	// 启动HTTP服务器
 	httpsrv := startInsecureServer(g)
 
+	// 创建并运行 HTTPS 服务器
+	httpssrv := startSecureServer(g)
+
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 	<-sig
@@ -120,6 +123,11 @@ func run() error {
 	// 10 秒内优雅关闭服务（将未处理完的请求处理完再关闭服务），超过 10 秒就超时退出
 	if err := httpsrv.Shutdown(ctx); err != nil {
 		log.ErrWithoutCtx(err).Msg("Insecure Server forced to shutdown")
+		return err
+	}
+
+	if err := httpssrv.Shutdown(ctx); err != nil {
+		log.ErrWithoutCtx(err).Msg("Secure Server forced to shutdown")
 		return err
 	}
 
@@ -141,4 +149,24 @@ func startInsecureServer(g *gin.Engine) *http.Server {
 	}()
 
 	return httpsrv
+}
+
+// startSecureServer 创建并运行 HTTPS 服务器.
+func startSecureServer(g *gin.Engine) *http.Server {
+	// 创建 HTTPS Server 实例
+	httpssrv := &http.Server{Addr: viper.GetString("tls.addr"), Handler: g}
+
+	// 运行 HTTPS 服务器。在 goroutine 中启动服务器，它不会阻止下面的正常关闭处理流程
+	// 打印一条日志，用来提示 HTTPS 服务已经起来，方便排障
+	log.InfoWithoutCtx().Str("addr", viper.GetString("tls.addr")).Msg("Start to listening the incoming requests on https address")
+	cert, key := viper.GetString("tls.cert"), viper.GetString("tls.key")
+	if cert != "" && key != "" {
+		go func() {
+			if err := httpssrv.ListenAndServeTLS(cert, key); err != nil && !errors.Is(err, http.ErrServerClosed) {
+				log.FatalWithoutCtx().Err(err)
+			}
+		}()
+	}
+
+	return httpssrv
 }
