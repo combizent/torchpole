@@ -58,7 +58,6 @@ func (userController *UserController) ListUser(ctx context.Context, r *pb.ListUs
 			Nickname:  u.Nickname,
 			Email:     u.Email,
 			Phone:     u.Phone,
-			PostCount: u.PostCount,
 			CreatedAt: timestamppb.New(createdAt),
 			UpdatedAt: timestamppb.New(updatedAt),
 		})
