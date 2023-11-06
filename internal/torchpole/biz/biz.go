@@ -23,9 +23,6 @@ type biz struct {
 	ds store.IStore
 }
 
-// 确保 biz 实现了 IBiz 接口.
-var _ IBiz = (*biz)(nil)
-
 // NewBiz 创建一个 IBiz 类型的实例.
 func NewBiz(s store.IStore) *biz {
 	return &biz{ds: s}

@@ -43,7 +43,6 @@ type UserInfo struct {
 	Nickname  string `json:"nickname"`
 	Email     string `json:"email"`
 	Phone     string `json:"phone"`
-	PostCount int64  `json:"postCount"`
 	CreatedAt string `json:"createdAt"`
 	UpdatedAt string `json:"updatedAt"`
 }
