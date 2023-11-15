@@ -1,7 +1,7 @@
 // Copyright 2023 Innkeeper dairongpeng <dairongpeng@foxmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file. The original repo for
-// this file is https://github.com/combizent/torchpole.
+// this file is https://github.com/rppkg/torchpole.
 
 package torchpole
 
@@ -19,11 +19,11 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/combizent/torchpole/internal/pkg/core"
-	"github.com/combizent/torchpole/internal/pkg/log"
-	"github.com/combizent/torchpole/internal/pkg/middleware"
-	"github.com/combizent/torchpole/pkg/token"
-	"github.com/combizent/torchpole/pkg/version/verflag"
+	"github.com/rppkg/torchpole/internal/pkg/core"
+	"github.com/rppkg/torchpole/internal/pkg/log"
+	"github.com/rppkg/torchpole/internal/pkg/middleware"
+	"github.com/rppkg/torchpole/pkg/token"
+	"github.com/rppkg/torchpole/pkg/version/verflag"
 )
 
 func NewCmd() *cobra.Command {
@@ -34,7 +34,7 @@ func NewCmd() *cobra.Command {
 		Long: `The brightest star in the night sky
 
 More information at:
-	https://github.com/combizent/torchpole#readme`,
+	https://github.com/rppkg/torchpole#readme`,
 
 		// 命令出错时，不打印帮助信息。不需要打印帮助信息，设置为 true 可以保持命令出错时一眼就能看到错误信息
 		SilenceUsage: true,

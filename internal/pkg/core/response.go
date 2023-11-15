@@ -1,7 +1,7 @@
 // Copyright 2023 Innkeeper dairongpeng <dairongpeng@foxmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file. The original repo for
-// this file is https://github.com/combizent/torchpole.
+// this file is https://github.com/rppkg/torchpole.
 
 package core
 
@@ -10,7 +10,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/combizent/torchpole/internal/pkg/errcode"
+	"github.com/rppkg/torchpole/internal/pkg/errcode"
 )
 
 // ErrResponse 定义了发生错误时的返回消息.

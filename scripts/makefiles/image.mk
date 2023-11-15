@@ -5,7 +5,7 @@
 DOCKER := docker
 DOCKER_SUPPORTED_API_VERSION ?= 1.32
 
-REGISTRY_PREFIX ?= combizent
+REGISTRY_PREFIX ?= rppkg
 # 定义基础镜像
 BASE_IMAGE = alpine:3.18
 

@@ -1,7 +1,7 @@
 // Copyright 2023 Innkeeper dairongpeng <dairongpeng@foxmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file. The original repo for
-// this file is https://github.com/combizent/torchpole.
+// this file is https://github.com/rppkg/torchpole.
 
 package user
 
@@ -12,11 +12,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/combizent/torchpole/internal/pkg/core"
-	"github.com/combizent/torchpole/internal/pkg/errcode"
-	"github.com/combizent/torchpole/internal/pkg/log"
-	v1 "github.com/combizent/torchpole/pkg/api/torchpole/v1"
-	pb "github.com/combizent/torchpole/pkg/proto/torchpole/v1"
+	"github.com/rppkg/torchpole/internal/pkg/core"
+	"github.com/rppkg/torchpole/internal/pkg/errcode"
+	"github.com/rppkg/torchpole/internal/pkg/log"
+	v1 "github.com/rppkg/torchpole/pkg/api/torchpole/v1"
+	pb "github.com/rppkg/torchpole/pkg/proto/torchpole/v1"
 )
 
 // List 返回用户列表，只有 root 用户才能获取用户列表.

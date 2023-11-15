@@ -1,7 +1,7 @@
 // Copyright 2023 Innkeeper dairongpeng <dairongpeng@foxmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file. The original repo for
-// this file is https://github.com/combizent/torchpole.
+// this file is https://github.com/rppkg/torchpole.
 
 package model
 
@@ -10,7 +10,7 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/combizent/torchpole/pkg/auth"
+	"github.com/rppkg/torchpole/pkg/auth"
 )
 
 // User 是数据库中 user 记录 struct 格式的映射.

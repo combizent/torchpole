@@ -1,7 +1,7 @@
 // Copyright 2023 Innkeeper dairongpeng <dairongpeng@foxmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file. The original repo for
-// this file is https://github.com/combizent/torchpole.
+// this file is https://github.com/rppkg/torchpole.
 
 package torchpole
 
@@ -9,13 +9,13 @@ import (
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 
-	"github.com/combizent/torchpole/internal/pkg/core"
-	"github.com/combizent/torchpole/internal/pkg/errcode"
-	"github.com/combizent/torchpole/internal/pkg/log"
-	"github.com/combizent/torchpole/internal/pkg/middleware"
-	"github.com/combizent/torchpole/internal/torchpole/controller/v1/user"
-	"github.com/combizent/torchpole/internal/torchpole/store"
-	"github.com/combizent/torchpole/pkg/auth"
+	"github.com/rppkg/torchpole/internal/pkg/core"
+	"github.com/rppkg/torchpole/internal/pkg/errcode"
+	"github.com/rppkg/torchpole/internal/pkg/log"
+	"github.com/rppkg/torchpole/internal/pkg/middleware"
+	"github.com/rppkg/torchpole/internal/torchpole/controller/v1/user"
+	"github.com/rppkg/torchpole/internal/torchpole/store"
+	"github.com/rppkg/torchpole/pkg/auth"
 )
 
 // installRouters 安装 torchpole 接口路由.
