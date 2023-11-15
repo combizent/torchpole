@@ -1,7 +1,7 @@
 // Copyright 2023 Innkeeper dairongpeng <dairongpeng@foxmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file. The original repo for
-// this file is https://github.com/combizent/torchpole.
+// this file is https://github.com/rppkg/torchpole.
 
 package user
 
@@ -15,13 +15,13 @@ import (
 	"golang.org/x/sync/errgroup"
 	"gorm.io/gorm"
 
-	"github.com/combizent/torchpole/internal/pkg/errcode"
-	"github.com/combizent/torchpole/internal/pkg/log"
-	"github.com/combizent/torchpole/internal/pkg/model"
-	"github.com/combizent/torchpole/internal/torchpole/store"
-	v1 "github.com/combizent/torchpole/pkg/api/torchpole/v1"
-	"github.com/combizent/torchpole/pkg/auth"
-	"github.com/combizent/torchpole/pkg/token"
+	"github.com/rppkg/torchpole/internal/pkg/errcode"
+	"github.com/rppkg/torchpole/internal/pkg/log"
+	"github.com/rppkg/torchpole/internal/pkg/model"
+	"github.com/rppkg/torchpole/internal/torchpole/store"
+	v1 "github.com/rppkg/torchpole/pkg/api/torchpole/v1"
+	"github.com/rppkg/torchpole/pkg/auth"
+	"github.com/rppkg/torchpole/pkg/token"
 )
 
 // IUserBiz 定义了 user 模块在 biz 层所实现的方法.

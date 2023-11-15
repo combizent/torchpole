@@ -1,7 +1,7 @@
 // Copyright 2023 Innkeeper dairongpeng <dairongpeng@foxmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file. The original repo for
-// this file is https://github.com/combizent/torchpole.
+// this file is https://github.com/rppkg/torchpole.
 
 package torchpole
 
@@ -13,9 +13,9 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/combizent/torchpole/internal/pkg/log"
-	"github.com/combizent/torchpole/internal/torchpole/store"
-	"github.com/combizent/torchpole/pkg/db"
+	"github.com/rppkg/torchpole/internal/pkg/log"
+	"github.com/rppkg/torchpole/internal/torchpole/store"
+	"github.com/rppkg/torchpole/pkg/db"
 )
 
 const (

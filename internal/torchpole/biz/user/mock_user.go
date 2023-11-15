@@ -1,7 +1,7 @@
 // Copyright 2023 Innkeeper dairongpeng <dairongpeng@foxmail.com>. All rights reserved.
 // Use of this source code is governed by a MIT style
 // license that can be found in the LICENSE file. The original repo for
-// this file is https://github.com/combizent/torchpole.
+// this file is https://github.com/rppkg/torchpole.
 
 package user
 
@@ -11,7 +11,7 @@ import (
 
 	"github.com/golang/mock/gomock"
 
-	v1 "github.com/combizent/torchpole/pkg/api/torchpole/v1"
+	v1 "github.com/rppkg/torchpole/pkg/api/torchpole/v1"
 )
 
 // MockUserBiz 需要实现IUserBiz接口.
