@@ -6,11 +6,16 @@
 package db
 
 import (
+	"database/sql"
 	"fmt"
+	"gorm.io/gorm"
 	"time"
 
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/golang-migrate/migrate/v4"
+	migrate_mysql "github.com/golang-migrate/migrate/v4/database/mysql"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
 
@@ -65,4 +70,20 @@ func NewMySQL(opts *MySQLOptions) (*gorm.DB, error) {
 	sqlDB.SetMaxIdleConns(opts.MaxIdleConnections)
 
 	return db, nil
+}
+
+func Migrate(opts *MySQLOptions) error {
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?multiStatements=true",
+		opts.Username, opts.Password, opts.Host, opts.Database,
+	)
+
+	db, _ := sql.Open("mysql", dsn)
+	driver, _ := migrate_mysql.WithInstance(db, &migrate_mysql.Config{})
+	m, _ := migrate.NewWithDatabaseInstance(
+		"file://./migrations",
+		opts.Database,
+		driver,
+	)
+
+	return m.Steps(2)
 }
