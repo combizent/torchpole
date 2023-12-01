@@ -94,6 +94,11 @@ func initStore() error {
 		LogLevel:              viper.GetInt("db.log-level"),
 	}
 
+	err := db.Migrate(dbOptions)
+	if err != nil {
+		return err
+	}
+
 	ins, err := db.NewMySQL(dbOptions)
 	if err != nil {
 		return err
